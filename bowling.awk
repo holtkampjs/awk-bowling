@@ -5,9 +5,9 @@
   gsub(/ /, "", rolls)
   sum=0
   bonus_roll_count=0
-  for (i=1; i<=length(rolls); i++) {
+  for (i=1; i<length(rolls); i++) {
     roll=substr(rolls, i, 1)
-    if (roll == "-") { continue }
+    if (roll == "-") { roll=0 }
     if (roll == "/") { roll=10-substr(rolls, i-1, 1) }
     if (roll == "X") { roll=10 }
     if (i>1 && substr(rolls, i-1, 1) == "/") { sum+=roll }
