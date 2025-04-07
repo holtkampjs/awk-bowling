@@ -14,9 +14,17 @@
     } else if (digit == "/") {
       pins=10-substr($0, i-1, 1)
       sum += pins
+      if (bonus_roll_count > 0) {
+        sum += pins
+        bonus_roll_count--
+      }
       bonus_roll_count=1
     } else if (digit == "X") {
       sum += 10
+      if (bonus_roll_count > 0) {
+        sum += 10
+        bonus_roll_count--
+      }
       bonus_roll_count=2
     }
   }
