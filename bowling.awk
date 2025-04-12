@@ -29,7 +29,7 @@ function scoreframe(rolls) {
   return countpins(first)+countpins(second, first)+extra
 }
 
-{
+/^.. .. .. .. .. .. .. .. .. ...$/ {
   score=0
   split($0, frames)
   for (i=1; i<=10; i++) {
