@@ -1,20 +1,39 @@
-#!/usr/bin/env awk -f
+#!/usr/bin/env -S awk -f
+
+function countpins(roll, prev) {
+  if (roll == "X") {
+    return 10
+  }
+  if (roll == "/") {
+    return 10-countpins(prev)
+  }
+  if (roll ~ "[1-9]") {
+    return roll
+  }
+  return 0
+}
+
+function scoreframe(rolls) {
+  extra=0
+  if (substr(rolls, 1, 1) == "X") {
+    extra+=countpins(substr(rolls, 2, 1))
+    extra+=countpins(substr(rolls, 3, 1), substr(rolls, 2, 1))
+  }
+  else if (substr(rolls, 2, 1) == "/") {
+    extra+=countpins(substr(rolls, 3, 1))
+  }
+
+  first=substr(rolls, 1, 1)
+  second=substr(rolls, 2, 1)
+  return countpins(first)+countpins(second, first)+extra
+}
 
 {
-  rolls=$0
-  gsub(/ /, "", rolls)
-  sum=0
-  bonus_roll_count=0
-  for (i=1; i<length(rolls); i++) {
-    roll=substr(rolls, i, 1)
-    if (roll == "-") { roll=0 }
-    if (roll == "/") { roll=10-substr(rolls, i-1, 1) }
-    if (roll == "X") { roll=10 }
-    if (i>1 && substr(rolls, i-1, 1) == "/") { sum+=roll }
-    if (i>1 && substr(rolls, i-1, 1) == "X") { sum+=roll }
-    if (i>2 && substr(rolls, i-2, 1) == "X") { sum+=roll }
-    sum+=roll
+  score=0
+  split($0, frames)
+  for (i=1; i<=10; i++) {
+    score+=scoreframe(frames[i] frames[i+1] frames[i+2])
   }
-  print "Frames:", $0
-  print "Score: ", sum
+
+  print score
 }
