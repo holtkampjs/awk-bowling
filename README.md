@@ -1,6 +1,6 @@
 # AWK Bowling
 
-![Tests](https://github.com/holtkampjs/awk-bowling/actions/workflows/main.yml/badge.svg)
+[![Tests](https://github.com/holtkampjs/awk-bowling/actions/workflows/main.yml/badge.svg)](https://github.com/holtkampjs/awk-bowling/actions)
 
 This is an implementation of the [Bowling Kata](https://codingdojo.org/kata/Bowling/) in [AWK](https://en.wikipedia.org/wiki/AWK).
 
