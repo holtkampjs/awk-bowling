@@ -15,7 +15,10 @@ function countpins(roll, prev) {
 
 function scoreframe(rolls) {
   extra=0
+  first=substr(rolls, 1, 1)
+  second=substr(rolls, 2, 1)
   if (substr(rolls, 1, 1) == "X") {
+    second=0
     extra+=countpins(substr(rolls, 2, 1))
     extra+=countpins(substr(rolls, 3, 1), substr(rolls, 2, 1))
   }
@@ -23,8 +26,6 @@ function scoreframe(rolls) {
     extra+=countpins(substr(rolls, 3, 1))
   }
 
-  first=substr(rolls, 1, 1)
-  second=substr(rolls, 2, 1)
   return countpins(first)+countpins(second, first)+extra
 }
 
