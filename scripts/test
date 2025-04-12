@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color (reset)
+
+function execute_tests() {
+  local test_file="$1"
+  local success=''
+
+  while IFS=, read -r frames expected
+  do
+    result="$(echo "$frames" | ./bowling.awk)"
+    if [[ $expected != $result ]]
+    then
+      success='false'
+      echo -en "$RED"
+      printf 'Frames: %s\n  Expected: %3s\n  Recieved: %3s\n' "$frames" "$expected" "$result"
+      echo -en "$NC"
+    else
+      printf "${GREEN}Frames: %s${NC}\n" "$frames"
+    fi
+  done < <(cat "$test_file")
+
+  [[ -z $success ]]
+  return $?
+}
+
+test_files=($(ls tests/*.txt))
+
+for file in "${test_files[@]}"
+do
+  echo '======================================'
+  echo -n 'Tests: '
+  basename $file | sed 's/\.txt//g'
+
+  execute_tests "$file"
+  [[ $? == 0 ]] && echo -e "${GREEN}Result: Success${NC}" || echo -e "${RED}Result: Failure${NC}"
+done
