@@ -1,6 +1,8 @@
 # AWK Bowling
 
-This is an implementation of the Bowling Kata in AWK.
+![Tests](https://github.com/holtkampjs/awk-bowling/actions/workflows/main.yml/badge.svg)
+
+This is an implementation of the [Bowling Kata](https://codingdojo.org/kata/Bowling/) in [AWK](https://en.wikipedia.org/wiki/AWK).
 
 ## Testing
 
@@ -65,6 +67,11 @@ In one-off mode, you can pipe a bowling game into the script and the output will
 
 ```bash
 $ echo 'X  1/ 2- -- -- -- -- -- -- ---' | bowling
+34
+
+# or
+
+$ bowling <<< 'X  1/ 2- -- -- -- -- -- -- ---' 
 34
 ```
 
